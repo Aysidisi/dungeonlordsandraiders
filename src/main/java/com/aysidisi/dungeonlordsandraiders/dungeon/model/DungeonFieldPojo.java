@@ -1,8 +1,9 @@
 
 package com.aysidisi.dungeonlordsandraiders.dungeon.model;
 
-import java.math.BigInteger;
 import java.util.List;
+
+import org.bson.types.ObjectId;
 
 public class DungeonFieldPojo
 {
@@ -12,7 +13,7 @@ public class DungeonFieldPojo
 	
 	private Integer positionY;
 	
-	private List<BigInteger> raiderIds;
+	private List<ObjectId> raiderIds;
 	
 	private Integer relativePositionX;
 	
@@ -33,7 +34,7 @@ public class DungeonFieldPojo
 		return this.positionY;
 	}
 
-	public List<BigInteger> getRaiderIds()
+	public List<ObjectId> getRaiderIds()
 	{
 		return this.raiderIds;
 	}
@@ -63,7 +64,7 @@ public class DungeonFieldPojo
 		this.positionY = positionY;
 	}
 
-	public void setRaiderIds(final List<BigInteger> raiderIds)
+	public void setRaiderIds(final List<ObjectId> raiderIds)
 	{
 		this.raiderIds = raiderIds;
 	}

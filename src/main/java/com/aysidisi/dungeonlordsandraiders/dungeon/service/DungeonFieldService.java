@@ -1,10 +1,10 @@
 
 package com.aysidisi.dungeonlordsandraiders.dungeon.service;
 
-import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,20 +29,20 @@ public class DungeonFieldService
 		return this.dungeonFieldDao.findAll();
 	}
 
-	public DungeonField findByPositionXAndPositionY(final Integer positionX, final Integer positionY)
+	public DungeonField findByPositionXAndPositionY(final Integer positionX,
+			final Integer positionY)
 	{
 		return this.dungeonFieldDao.findByPositionXAndPositionY(positionX, positionY);
 	}
 
-	public List<DungeonField> findByPositionXBetweenAndPositionYBetween(
-			final Integer positionXFrom, final Integer positionXTo, final Integer positionYFrom,
-			final Integer positionYTo)
-			{
+	public List<DungeonField> findByPositionXBetweenAndPositionYBetween(final Integer positionXFrom,
+			final Integer positionXTo, final Integer positionYFrom, final Integer positionYTo)
+	{
 		return this.dungeonFieldDao.findByPositionXBetweenAndPositionYBetween(positionXFrom,
 				positionXTo, positionYFrom, positionYTo);
-			}
+	}
 	
-	public DungeonField findOne(final BigInteger id)
+	public DungeonField findOne(final ObjectId id)
 	{
 		return this.dungeonFieldDao.findOne(id);
 	}

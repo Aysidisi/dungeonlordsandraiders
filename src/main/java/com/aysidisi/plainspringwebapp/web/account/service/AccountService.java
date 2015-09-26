@@ -3,6 +3,7 @@ package com.aysidisi.plainspringwebapp.web.account.service;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,17 @@ public class AccountService
 		return this.accountDao.findByName(name);
 	}
 
-	public void save(final Account account)
+	public Account findOne(final ObjectId accountId)
+	{
+		return this.accountDao.findOne(accountId);
+	}
+	
+	public Account save(final Account account)
+	{
+		return this.accountDao.save(account);
+	}
+	
+	public Account saveOnlyEditableFields(final Account account)
 	{
 		Account storedAccount = this.accountDao.findByName(account.getName());
 		if (storedAccount != null)
@@ -47,6 +58,6 @@ public class AccountService
 		{
 			storedAccount = account;
 		}
-		this.accountDao.save(storedAccount);
+		return this.accountDao.save(storedAccount);
 	}
 }

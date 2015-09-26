@@ -24,13 +24,13 @@ import com.aysidisi.plainspringwebapp.web.core.ViewTemplate;
 @Controller
 public class DungeonController
 {
-	
+
 	@Autowired
 	private DungeonFieldService dungeonFieldService;
-	
+
 	@Autowired
 	private RaiderService raiderService;
-
+	
 	@RequestMapping(value = "/generatedungeon", method = RequestMethod.GET)
 	public void generatedungeon()
 	{
@@ -54,23 +54,22 @@ public class DungeonController
 			}
 		}
 		System.out.println("Dungeon Generated!");
-
+		
 	}
-
+	
 	@RequestMapping(value = "/dungeon/plaindungeon", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<DungeonFieldPojo> getDungeon()
 	{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Account account = (Account) authentication.getPrincipal();
-		return this.dungeonFieldService.getRelativeDungeonMapForRaider(this.raiderService
-				.findByOwnerAccoundId(account.getId()));
+		return this.dungeonFieldService.getRelativeDungeonMapForRaider(
+				this.raiderService.findByOwnerAccoundId(account.getId()));
 	}
-
+	
 	@RequestMapping(value = "/dungeon", method = RequestMethod.GET)
 	public ModelAndView home()
 	{
-		return new ModelAndView(ViewManager.generateViewName(ViewTemplate.mainTemplate,
-				"dungeon/dungeon"));
+		return ViewManager.generateModelAndView(ViewTemplate.mainTemplate, "dungeon/dungeon");
 	}
 }

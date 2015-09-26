@@ -31,8 +31,8 @@ public class CreateAccountController
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public ModelAndView createAccount()
 	{
-		ModelAndView modelAndView = new ModelAndView(ViewManager.generateViewName(
-				ViewTemplate.bodyOnly, "account/createAccount"));
+		ModelAndView modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+				"account/createAccount");
 		List<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		this.initView(modelAndView, new Account());
@@ -55,12 +55,13 @@ public class CreateAccountController
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 			account.setAuthorities(authorities);
 			account.setEnabled(true);
-			this.accountService.save(account);
+			this.accountService.saveOnlyEditableFields(account);
 			modelAndView = new ModelAndView("redirect:/login?accountCreated");
 		}
 		else
 		{
-			modelAndView = new ModelAndView("account/createAccount");
+			modelAndView = ViewManager.generateModelAndView(ViewTemplate.bodyOnly,
+					"account/createAccount");
 			this.initView(modelAndView, account);
 			modelAndView.addObject("errors", errors);
 		}

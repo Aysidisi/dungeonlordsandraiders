@@ -38,6 +38,6 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer
 	{
 		registry.addEndpoint("/chatreg").withSockJS();
 		registry.addEndpoint("/dungeonlordsandraiders").withSockJS();
-	}
+	} 
 
 }

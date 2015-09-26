@@ -1,9 +1,9 @@
 
 package com.aysidisi.dungeonlordsandraiders.raider.controller;
 
-import java.math.BigInteger;
 import java.util.LinkedList;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,13 +26,13 @@ public class CreateRaiderController
 {
 	@Autowired
 	private DungeonFieldService dungeonFieldService;
-
-	@Autowired
-	private DungeonWebsocket dungeonWebsocket;
 	
 	@Autowired
-	private RaiderService raiderService;
+	private DungeonWebsocket dungeonWebsocket;
 
+	@Autowired
+	private RaiderService raiderService;
+	
 	@RequestMapping(value = "/raider", method = RequestMethod.GET, params = "create")
 	public ModelAndView create()
 	{
@@ -54,14 +54,13 @@ public class CreateRaiderController
 			raider = this.raiderService.save(raider);
 			if (dungeonField.getRaiderIds() == null)
 			{
-				dungeonField.setRaiderIds(new LinkedList<BigInteger>());
+				dungeonField.setRaiderIds(new LinkedList<ObjectId>());
 			}
 			dungeonField.getRaiderIds().add(raider.getId());
 			this.dungeonFieldService.save(dungeonField);
 			this.dungeonWebsocket.updateGameMap();
-
+			
 		}
-		return new ModelAndView(ViewManager.generateViewName(ViewTemplate.mainTemplate,
-				"raider/createRaider"));
+		return ViewManager.generateModelAndView(ViewTemplate.mainTemplate, "raider/createRaider");
 	}
 }

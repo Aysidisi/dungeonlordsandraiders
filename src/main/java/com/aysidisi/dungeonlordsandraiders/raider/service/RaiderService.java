@@ -1,8 +1,6 @@
 
 package com.aysidisi.dungeonlordsandraiders.raider.service;
 
-import java.math.BigInteger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +12,17 @@ public class RaiderService
 {
 	@Autowired
 	private RaiderDao raiderDao;
-
+	
 	public void delete(final Raider raider)
 	{
 		this.raiderDao.delete(raider);
 	}
-	
-	public Raider findByOwnerAccoundId(final BigInteger ownerAccountId)
+
+	public Raider findByOwnerAccoundId(final org.bson.types.ObjectId ownerAccountId)
 	{
 		return this.raiderDao.findByOwnerAccountId(ownerAccountId);
 	}
-
+	
 	public Raider save(final Raider raider)
 	{
 		return this.raiderDao.save(raider);

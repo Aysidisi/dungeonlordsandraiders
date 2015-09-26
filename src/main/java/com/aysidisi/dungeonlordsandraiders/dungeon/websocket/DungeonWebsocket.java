@@ -1,9 +1,9 @@
 
 package com.aysidisi.dungeonlordsandraiders.dungeon.websocket;
 
-import java.math.BigInteger;
 import java.util.LinkedList;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
@@ -24,13 +24,13 @@ public class DungeonWebsocket
 {
 	@Autowired
 	private DungeonFieldService dungeonFieldService;
-	
-	@Autowired
-	private SimpMessageSendingOperations messagingTemplate;
 
 	@Autowired
-	private RaiderService raiderService;
+	private SimpMessageSendingOperations messagingTemplate;
 	
+	@Autowired
+	private RaiderService raiderService;
+
 	@MessageMapping("/move/keyboard")
 	public void movement(final Integer key, final SimpMessageHeaderAccessor headerAccessor)
 	{
@@ -40,8 +40,8 @@ public class DungeonWebsocket
 		Raider raider = this.raiderService.findByOwnerAccoundId(account.getId());
 		if (raider != null)
 		{
-			DungeonField dungeonFieldMovedFrom = this.dungeonFieldService.findOne(raider
-					.getFieldId());
+			DungeonField dungeonFieldMovedFrom = this.dungeonFieldService
+					.findOne(raider.getFieldId());
 			DungeonField dungeonFieldMovedTo = null;
 			if (key == 38)
 			{
@@ -77,7 +77,7 @@ public class DungeonWebsocket
 				dungeonFieldMovedFrom.getRaiderIds().remove(raider.getId());
 				if (dungeonFieldMovedTo.getRaiderIds() == null)
 				{
-					dungeonFieldMovedTo.setRaiderIds(new LinkedList<BigInteger>());
+					dungeonFieldMovedTo.setRaiderIds(new LinkedList<ObjectId>());
 				}
 				dungeonFieldMovedTo.getRaiderIds().add(raider.getId());
 				this.raiderService.save(raider);
@@ -87,9 +87,10 @@ public class DungeonWebsocket
 			}
 		}
 	}
-	
+
 	@MessageMapping("/move/mouse")
-	public void movement(final MovementPojo movement, final SimpMessageHeaderAccessor headerAccessor)
+	public void movement(final MovementPojo movement,
+			final SimpMessageHeaderAccessor headerAccessor)
 	{
 		UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) headerAccessor
 				.getUser();
@@ -105,7 +106,7 @@ public class DungeonWebsocket
 			dungeonFieldMovedFrom.getRaiderIds().remove(raider.getId());
 			if (dungeonFieldMovedTo.getRaiderIds() == null)
 			{
-				dungeonFieldMovedTo.setRaiderIds(new LinkedList<BigInteger>());
+				dungeonFieldMovedTo.setRaiderIds(new LinkedList<ObjectId>());
 			}
 			dungeonFieldMovedTo.getRaiderIds().add(raider.getId());
 			this.raiderService.save(raider);
@@ -114,17 +115,16 @@ public class DungeonWebsocket
 			this.updateGameMap();
 		}
 	}
-
+	
 	public void updateGameMap()
 	{
 		for (Account account : WebSocketSessionCache.getInstance()
 				.getWebSocketSessionCacheBySubject("/user/dungeon/updatedungeon").values())
 		{
-			this.messagingTemplate.convertAndSendToUser(account.getName(),
-					"/dungeon/updatedungeon", this.dungeonFieldService
-							.getRelativeDungeonMapForRaider(this.raiderService
-									.findByOwnerAccoundId(account.getId())));
+			this.messagingTemplate.convertAndSendToUser(account.getName(), "/dungeon/updatedungeon",
+					this.dungeonFieldService.getRelativeDungeonMapForRaider(
+							this.raiderService.findByOwnerAccoundId(account.getId())));
 		}
-		
+
 	}
 }

@@ -1,63 +1,59 @@
 
 package com.aysidisi.dungeonlordsandraiders.raider.model;
 
-import java.math.BigInteger;
-
-import javax.persistence.GeneratedValue;
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Raider
 {
-	
-	private BigInteger fieldId;
 
+	private ObjectId fieldId;
+	
 	@Id
-	@GeneratedValue
-	private BigInteger id;
-
-	private String name;
-
-	private BigInteger ownerAccountId;
+	private ObjectId id;
 	
-	public BigInteger getFieldId()
+	private String name;
+	
+	private ObjectId ownerAccountId;
+
+	public ObjectId getFieldId()
 	{
 		return this.fieldId;
 	}
-	
-	public BigInteger getId()
+
+	public ObjectId getId()
 	{
 		return this.id;
 	}
-	
+
 	public String getName()
 	{
 		return this.name;
 	}
-	
-	public BigInteger getOwnerAccountId()
+
+	public ObjectId getOwnerAccountId()
 	{
 		return this.ownerAccountId;
 	}
-	
-	public void setFieldId(final BigInteger fieldId)
+
+	public void setFieldId(final ObjectId fieldId)
 	{
 		this.fieldId = fieldId;
 	}
-	
-	public void setId(final BigInteger id)
+
+	public void setId(final ObjectId id)
 	{
 		this.id = id;
 	}
-	
+
 	public void setName(final String name)
 	{
 		this.name = name;
 	}
-	
-	public void setOwnerAccountId(final BigInteger ownerAccountId)
+
+	public void setOwnerAccountId(final ObjectId ownerAccountId)
 	{
 		this.ownerAccountId = ownerAccountId;
 	}

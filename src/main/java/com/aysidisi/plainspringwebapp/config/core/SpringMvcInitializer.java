@@ -5,15 +5,14 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import com.aysidisi.plainspringwebapp.config.AppConfig;
 
-public class SpringMvcInitializer extends
-AbstractAnnotationConfigDispatcherServletInitializer
+public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer
 {
-
+	
 	@Override
 	protected Class<?>[] getRootConfigClasses()
 	{
 		return new Class[]
-				{ AppConfig.class };
+		{ AppConfig.class };
 	}
 
 	@Override
@@ -26,7 +25,7 @@ AbstractAnnotationConfigDispatcherServletInitializer
 	protected String[] getServletMappings()
 	{
 		return new String[]
-				{ "/" };
+		{ "/" };
 	}
-
+	
 }

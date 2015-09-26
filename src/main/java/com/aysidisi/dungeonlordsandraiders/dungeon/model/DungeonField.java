@@ -1,11 +1,9 @@
 
 package com.aysidisi.dungeonlordsandraiders.dungeon.model;
 
-import java.math.BigInteger;
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,21 +13,20 @@ public class DungeonField
 	private Integer fieldTypeId;
 
 	@Id
-	@GeneratedValue
-	private BigInteger id;
+	private ObjectId id;
 
 	private Integer positionX;
 	
 	private Integer positionY;
 	
-	private List<BigInteger> raiderIds;
+	private List<ObjectId> raiderIds;
 	
 	public Integer getFieldTypeId()
 	{
 		return this.fieldTypeId;
 	}
 
-	public BigInteger getId()
+	public ObjectId getId()
 	{
 		return this.id;
 	}
@@ -44,7 +41,7 @@ public class DungeonField
 		return this.positionY;
 	}
 	
-	public List<BigInteger> getRaiderIds()
+	public List<ObjectId> getRaiderIds()
 	{
 		return this.raiderIds;
 	}
@@ -54,7 +51,7 @@ public class DungeonField
 		this.fieldTypeId = fieldTypeId;
 	}
 	
-	public void setId(final BigInteger id)
+	public void setId(final ObjectId id)
 	{
 		this.id = id;
 	}
@@ -69,7 +66,7 @@ public class DungeonField
 		this.positionY = positionY;
 	}
 	
-	public void setRaiderIds(final List<BigInteger> raiderIds)
+	public void setRaiderIds(final List<ObjectId> raiderIds)
 	{
 		this.raiderIds = raiderIds;
 	}
